@@ -1,0 +1,22 @@
+*, *::after, *::before {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.leaflet-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1;
+}
+
+/*# sourceMappingURL=app.css.map */

@@ -1,0 +1,83 @@
+.menu{
+    width: 25rem;
+    height: auto;
+    position: absolute;
+    z-index: 98;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 1rem 1rem;
+
+    &__tabs{
+        width: 100%;
+        height: 5%;
+        display: flex;
+        gap: 1rem;
+
+        .icon, .icon-active {
+            width: 2rem;
+            height: 2.5rem;
+            
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        
+        .icon-active{
+            color: red;
+        }
+    }
+}
+
+form{
+    width: 100%;
+    height: 95%;
+    .table{
+        // padding: 2rem;
+        width: 100%;
+
+        h2{
+            margin-bottom: 1rem;
+        }
+
+        tbody{
+            width: 100%;
+            .table__row{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+
+                &__text{
+                    font-size: 1.4rem;
+                }
+
+                &__cel1, &__cel2 &__cel3{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &__cel1{
+                    width: 2rem;
+                    height: 2rem;
+                }
+
+                &__cel2{                    
+                    input {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                &__cel3{
+                    width: auto;
+                }
+            }
+        }
+    }
+}

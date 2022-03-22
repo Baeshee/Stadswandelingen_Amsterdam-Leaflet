@@ -1,0 +1,72 @@
+.menu {
+  width: 25rem;
+  height: auto;
+  position: absolute;
+  z-index: 98;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 1rem 1rem;
+}
+.menu__tabs {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  gap: 1rem;
+}
+.menu__tabs .icon, .menu__tabs .icon-active {
+  width: 2rem;
+  height: 2.5rem;
+}
+.menu__tabs .icon:hover, .menu__tabs .icon-active:hover {
+  cursor: pointer;
+}
+.menu__tabs .icon-active {
+  color: red;
+}
+
+form {
+  width: 100%;
+  height: 95%;
+}
+form .table {
+  width: 100%;
+}
+form .table h2 {
+  margin-bottom: 1rem;
+}
+form .table tbody {
+  width: 100%;
+}
+form .table tbody .table__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+form .table tbody .table__row__text {
+  font-size: 1.4rem;
+}
+form .table tbody .table__row__cel1, form .table tbody .table__row__cel2 form .table tbody .table__row__cel3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form .table tbody .table__row__cel1 {
+  width: 2rem;
+  height: 2rem;
+}
+form .table tbody .table__row__cel2 input {
+  width: 100%;
+  height: 100%;
+}
+form .table tbody .table__row__cel3 {
+  width: auto;
+}
+
+/*# sourceMappingURL=filters.css.map */
