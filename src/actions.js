@@ -6,6 +6,8 @@ export const CHANGE_SHOWWALLART = "CHANGE_SHOWWALLART"
 export const CHANGE_SHOWMONUMENTS = "CHANGE_SHOWMONUMENTS"
 export const CHANGE_SHOWSTATIONS = "CHANGE_SHOWSTATIONS"
 export const CHANGE_SHOWEATDRINK = "CHANGE_SHOWEATDRINK"
+export const CHANGE_CURRENTLOCATION = "CHANGE_CURRENTLOCATION"
+export const CHANGE_DARKMODE = "CHANGE_DARKMODE"
 
 export const changeShowArchitecture = showArchitecture => ({
     type: CHANGE_SHOWARCHITECTURE,
@@ -44,4 +46,14 @@ export const changeShowStations = showStations => ({
 export const changeShowEatDrink = showEatDrink => ({
     type: CHANGE_SHOWEATDRINK,
     payload: showEatDrink,
+});
+
+export const changeCurrentLocation = currentLocation => ({
+    type: CHANGE_CURRENTLOCATION,
+    payload: currentLocation,
+});
+
+export const changeDarkMode = darkMode => ({
+    type: CHANGE_DARKMODE,
+    payload: darkMode,
 });

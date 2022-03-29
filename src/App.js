@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import Map from './components/map';
 import { Logo } from './components/logo';
 import {Provider} from "react-redux";
-import Filters from './components/filters'
+import Menu from './components/menu'
 
 import { store } from './store';
 
@@ -14,7 +14,7 @@ class App extends Component{
             <Provider store={store}>
                 <article>
                     <Logo />
-                    <Filters/>
+                    <Menu />
                     <Map />
                 </article>
             </Provider>
