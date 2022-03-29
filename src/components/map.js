@@ -1,4 +1,5 @@
 import React, { Component, createRef, useEffect } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { connect } from "react-redux";
 
 import L from 'leaflet'
@@ -7,6 +8,9 @@ import 'leaflet/dist/leaflet.css'
 
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 import Markers from '../components/markers'
 
@@ -27,10 +31,31 @@ const Routing = () => {
   useEffect(() => {
     if (!map) return;
 
+    const icon = new L.divIcon({
+      html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faLocationDot} />),
+      className: 'routing-icon',
+    })
+
     const routingControl = L.Routing.control({
-      waypoints: [L.latLng(52.384952, 4.746678), L.latLng(52.360007, 4.885185)],
+      waypoints: [L.latLng(52.384952, 4.746678), L.latLng(52.360007, 4.885185), L.latLng(52.408084, 4.855332)],
       routeWhileDragging: true,
-      class: 'routing'
+      profile: 'foot',
+      lineOptions: {
+        styles: [{ color: 'red', opacity: 1, weight: 5 }]
+      },
+      createMarker: function(i, waypoint, n) { 
+        const marker = L.marker(waypoint.latLng, {
+          className: 'rounting-body',
+          draggable: false,
+          bounceOnAdd: true,
+          bounceOnAddOptions: {
+            duration: 1000,
+            height: 800,
+          },
+          icon: icon
+        }); 
+        return marker;
+      }
     }).addTo(map);
 
     return () => map.removeControl(routingControl);
@@ -58,7 +83,7 @@ class Map extends Component {
                 <Markers />
 
                 <SetViewOnClick animateRef={this.animateRef}  />
-                {/* <Routing /> */}
+                <Routing />
 
             </MapContainer>
         )
