@@ -1,71 +1,8 @@
-import { CHANGE_SHOWARCHITECTURE, CHANGE_SHOWCHURCHES, CHANGE_SHOWMUSEA, CHANGE_SHOWART, CHANGE_SHOWWALLART, CHANGE_SHOWMONUMENTS, CHANGE_SHOWSTATIONS, CHANGE_SHOWEATDRINK, CHANGE_CURRENTLOCATION, CHANGE_DARKMODE } from '../actions'
+import { CHANGE_FILTERS, CHANGE_CURRENTLOCATION, CHANGE_DARKMODE, CHANGE_RELIGIONFILTERS } from '../actions'
 
-export const showArchitecture = (state = true, action) => {
+export const filters = (state = [true, true, true, true, true, true, true], action) => {
     switch(action.type){
-        case CHANGE_SHOWARCHITECTURE:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showChurches = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWCHURCHES:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showMusea = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWMUSEA:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showArt = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWART:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showWallArt = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWWALLART:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showMonuments = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWMONUMENTS:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showStations = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWSTATIONS:    
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-export const showEatDrink = (state = true, action) => {
-    switch(action.type){
-        case CHANGE_SHOWEATDRINK:    
+        case CHANGE_FILTERS:    
             return action.payload;
         default:
             return state;
@@ -86,6 +23,15 @@ export const darkMode = (state = false, action) => {
         case CHANGE_DARKMODE:    
             return action.payload;
         default:
+            return state;
+    }
+}
+
+export const religionFilters = (state = [true, true, true, true, true, true], action) =>{
+    switch(action.type){
+        case CHANGE_RELIGIONFILTERS:
+            return action.payload;
+        default: 
             return state;
     }
 }

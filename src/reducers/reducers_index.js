@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import {showArt, showWallArt, showMusea, showMonuments, showChurches, showArchitecture, showEatDrink, showStations, currentLocation, darkMode } from './reducers'
+import {currentLocation, darkMode, filters, religionFilters } from './reducers'
 
 
 export default combineReducers({
-    showArt, showWallArt, showMusea, showMonuments, showChurches, showArchitecture,  showEatDrink, showStations, currentLocation, darkMode
+    currentLocation, darkMode, filters, religionFilters
 });

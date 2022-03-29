@@ -4,14 +4,13 @@ import { connect } from "react-redux";
 import '../styles/css/markers.css'
 
 import MarkerClusterGroup from 'react-leaflet-markercluster'
-import _ from 'lodash';
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrainSubway, faMuseum, faMonument, faBuilding, faUtensils, faPaintBrush, faChurch, faObjectGroup } from '@fortawesome/free-solid-svg-icons'
+import { faTrainSubway, faMuseum, faMonument, faBuilding, faUtensils, faPaintBrush, faChurch, faObjectGroup, faKhanda, faStarOfDavid, faDharmachakra, faStarAndCrescent, faOm } from '@fortawesome/free-solid-svg-icons'
 
-import { MarkerBody, MarkerBodyAlt1, MarkerBodyAlt2, MarkerBodyAlt3 } from './marker_body'
+import { MarkerBody, MarkerBodyAlt1, MarkerBodyAlt2, MarkerBodyAlt3, MarkerBodyAlt4 } from './marker_body'
 
 import tramMetro from '../json/locations/Tram_Metro.json'
 import museaGalleries from '../json/locations/Musea_Galleries.json';
@@ -63,9 +62,34 @@ class Markers extends Component{
         className: "icon rel"
     });
 
+    sikhIcon = new L.divIcon({
+        html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faKhanda} />),
+        className: "icon rel"
+    });
+
+    jIcon = new L.divIcon({
+        html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faStarOfDavid} />),
+        className: "icon rel"
+    });
+
+    bIcon = new L.divIcon({
+        html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faDharmachakra} />),
+        className: "icon rel"
+    });
+
+    mosIcon = new L.divIcon({
+        html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faStarAndCrescent} />),
+        className: "icon rel"
+    });
+
+    hIcon = new L.divIcon({
+        html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faOm} />),
+        className: "icon rel"
+    });
+
     ccIcon = (cluster) => {
         let count = cluster.getChildCount();
-        let cn = "";
+        let cn = null;
         switch(true){
             case (count <= 20):
                 cn = "ccIcon c20"
@@ -88,16 +112,31 @@ class Markers extends Component{
       }
 
     render(){
+
+        const m = religion.features.filter(feature => feature.properties.Categorie === "Marokkaanse Moskee" || feature.properties.Categorie === "Turkse Moskee" || feature.properties.Categorie === "Surinaamse / Pakistaanse Moskee")
+        const bt = religion.features.filter(feature => feature.properties.Categorie === "Boeddhistische tempel")
+        let wk = religion.features.filter(feature => feature.properties.Categorie === "Christelijke kerk overig" || feature.properties.Categorie === "Evagelische- of Pinksterkerk" || feature.properties.Categorie === "Gereformeerde kerk" || feature.properties.Categorie === "Protestantse Kerk Nederland (PKN)" || feature.properties.Categorie === "Rooms Katholieke kerk"); // kerken (westers)
+        let ht = religion.features.filter(feature => feature.properties.Categorie === "Hindoeistische tempel");
+        let syn = religion.features.filter(feature => feature.properties.Categorie === "Joodse synagoge");
+        let st = religion.features.filter(feature => feature.properties.Categorie === "Sikh tempel");
+
         return (
             <MarkerClusterGroup iconCreateFunction={this.ccIcon}>
                 {/* <MarkerBody object={tramMetro} icon={this.tmIcon} /> */}
-                {this.props.showMus ? <MarkerBody object={museaGalleries} icon={this.mgIcon} /> : ""}
-                {this.props.showArch ? <MarkerBody object={architecture} icon={this.aIcon} /> : ""}
-                {this.props.showMonu ? <MarkerBodyAlt2 object={monuments} icon={this.mIcon} /> : ""}
-                {this.props.showED ? <MarkerBodyAlt1 object={eatDrink} icon={this.edIcon} /> : ""}
-                {this.props.showArt ? <MarkerBodyAlt3 object={art} icon={this.artIcon} /> : ""}
-                {this.props.showWArt ? <MarkerBodyAlt1 object={wallart} icon={this.wartIcon} /> : ""}
-                {this.props.showC ? <MarkerBody object={religion} icon={this.cIcon} /> : ""}
+                {this.props.filters[0] ? <MarkerBody object={museaGalleries} icon={this.mgIcon} /> : null}
+                {this.props.filters[2] ? <MarkerBody object={architecture} icon={this.aIcon} /> : null}
+                {this.props.filters[1] ? <MarkerBodyAlt2 object={monuments} icon={this.mIcon} /> : null}
+                {this.props.filters[3] ? <MarkerBodyAlt1 object={eatDrink} icon={this.edIcon} /> : null}
+                {this.props.filters[4] ? <MarkerBodyAlt3 object={art} icon={this.artIcon} /> : null}
+                {this.props.filters[5] ? <MarkerBodyAlt1 object={wallart} icon={this.wartIcon} /> : null}
+
+                {this.props.filters[6] ? this.props.rf[0] ? <MarkerBodyAlt4 object={m} icon={this.mosIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[1] ? <MarkerBodyAlt4 object={bt} icon={this.bIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[2] ? <MarkerBodyAlt4 object={wk} icon={this.cIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[3] ? <MarkerBodyAlt4 object={ht} icon={this.hIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[4] ? <MarkerBodyAlt4 object={syn} icon={this.jIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[5] ? <MarkerBodyAlt4 object={st} icon={this.sikhIcon} /> : null : null}
+
             </MarkerClusterGroup>
         )
     }
@@ -105,14 +144,8 @@ class Markers extends Component{
 
 const mapStateToProps = (state) => {
     return {
-        showTM: state.showStations,
-        showArch: state.showArchitecture,
-        showMonu: state.showMonuments,
-        showArt: state.showArt,
-        showWArt: state.showWallArt,
-        showED: state.showEatDrink,
-        showC: state.showChurches,
-        showMus: state.showMusea,
+        filters: state.filters,
+        rf: state.religionFilters
     }
 }
 
