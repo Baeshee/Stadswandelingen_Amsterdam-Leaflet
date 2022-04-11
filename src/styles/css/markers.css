@@ -1,0 +1,45 @@
+.icon {
+  font-size: 1.8rem;
+}
+
+.mg, .a {
+  color: black;
+}
+
+.m {
+  color: black;
+}
+
+.tm {
+  color: #2368d7;
+}
+
+.ed {
+  color: #da7c00;
+}
+
+.ccIcon {
+  border-radius: 50%;
+  border: 0.3rem solid rgba(191, 33, 47, 0.2);
+  background-color: rgba(191, 33, 47, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c20 {
+  border: 3px solid rgba(223, 253, 123, 0.2);
+  background-color: rgba(223, 253, 123, 0.5);
+}
+
+.c50 {
+  border: 3px solid rgba(39, 179, 118, 0.2);
+  background-color: rgba(39, 179, 118, 0.5);
+}
+
+.c100 {
+  border: 3px solid rgba(249, 167, 62, 0.2);
+  background-color: rgba(249, 167, 62, 0.5);
+}
+
+/*# sourceMappingURL=markers.css.map */
