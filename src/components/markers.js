@@ -7,10 +7,12 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+import {changeLocations, changeToast} from '../actions'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrainSubway, faMuseum, faMonument, faBuilding, faUtensils, faPaintBrush, faChurch, faObjectGroup, faKhanda, faStarOfDavid, faDharmachakra, faStarAndCrescent, faOm } from '@fortawesome/free-solid-svg-icons'
 
-import { MarkerBody, MarkerBodyAlt1, MarkerBodyAlt2, MarkerBodyAlt3, MarkerBodyAlt4 } from './marker_body'
+import { MarkerBody, MarkerBodyAlt, MarkerBodyStation } from './marker_body'
 
 import tramMetro from '../json/locations/Tram_Metro.json'
 import museaGalleries from '../json/locations/Musea_Galleries.json';
@@ -111,8 +113,18 @@ class Markers extends Component{
         });
       }
 
-    render(){
+    addLocation = (loc) => {
+        let l = []
+        for (let i = 0; i < this.props.lc.length; i++){
+            l.push(this.props.lc[i])
+        }
 
+        l.push(loc);
+        this.props.changeLocations(l);
+        this.props.changeToast(!this.props.t);
+    }
+
+    render(){
         const m = religion.features.filter(feature => feature.properties.Categorie === "Marokkaanse Moskee" || feature.properties.Categorie === "Turkse Moskee" || feature.properties.Categorie === "Surinaamse / Pakistaanse Moskee")
         const bt = religion.features.filter(feature => feature.properties.Categorie === "Boeddhistische tempel")
         let wk = religion.features.filter(feature => feature.properties.Categorie === "Christelijke kerk overig" || feature.properties.Categorie === "Evagelische- of Pinksterkerk" || feature.properties.Categorie === "Gereformeerde kerk" || feature.properties.Categorie === "Protestantse Kerk Nederland (PKN)" || feature.properties.Categorie === "Rooms Katholieke kerk"); // kerken (westers)
@@ -123,19 +135,20 @@ class Markers extends Component{
         return (
             <MarkerClusterGroup iconCreateFunction={this.ccIcon}>
                 {/* <MarkerBody object={tramMetro} icon={this.tmIcon} /> */}
-                {this.props.filters[0] ? <MarkerBody object={museaGalleries} icon={this.mgIcon} /> : null}
-                {this.props.filters[2] ? <MarkerBody object={architecture} icon={this.aIcon} /> : null}
-                {this.props.filters[1] ? <MarkerBodyAlt2 object={monuments} icon={this.mIcon} /> : null}
-                {this.props.filters[3] ? <MarkerBodyAlt1 object={eatDrink} icon={this.edIcon} /> : null}
-                {this.props.filters[4] ? <MarkerBodyAlt3 object={art} icon={this.artIcon} /> : null}
-                {this.props.filters[5] ? <MarkerBodyAlt1 object={wallart} icon={this.wartIcon} /> : null}
+                {this.props.filters[0] ? <MarkerBody object={museaGalleries} icon={this.mgIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[2] ? <MarkerBody object={architecture} icon={this.aIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[1] ? <MarkerBody object={monuments} icon={this.mIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[3] ? <MarkerBody object={eatDrink} icon={this.edIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[4] ? <MarkerBody object={art} icon={this.artIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[5] ? <MarkerBody object={wallart} icon={this.wartIcon} addLoc={this.addLocation.bind(this)} /> : null}
+                {this.props.filters[7] ? <MarkerBodyStation object={tramMetro} icon={this.tmIcon} addLoc={this.addLocation.bind(this)} /> : null}
 
-                {this.props.filters[6] ? this.props.rf[0] ? <MarkerBodyAlt4 object={m} icon={this.mosIcon} /> : null : null}
-                {this.props.filters[6] ? this.props.rf[1] ? <MarkerBodyAlt4 object={bt} icon={this.bIcon} /> : null : null}
-                {this.props.filters[6] ? this.props.rf[2] ? <MarkerBodyAlt4 object={wk} icon={this.cIcon} /> : null : null}
-                {this.props.filters[6] ? this.props.rf[3] ? <MarkerBodyAlt4 object={ht} icon={this.hIcon} /> : null : null}
-                {this.props.filters[6] ? this.props.rf[4] ? <MarkerBodyAlt4 object={syn} icon={this.jIcon} /> : null : null}
-                {this.props.filters[6] ? this.props.rf[5] ? <MarkerBodyAlt4 object={st} icon={this.sikhIcon} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[0] ? <MarkerBodyAlt object={m} icon={this.mosIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[1] ? <MarkerBodyAlt object={bt} icon={this.bIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[2] ? <MarkerBodyAlt object={wk} icon={this.cIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[3] ? <MarkerBodyAlt object={ht} icon={this.hIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[4] ? <MarkerBodyAlt object={syn} icon={this.jIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
+                {this.props.filters[6] ? this.props.rf[5] ? <MarkerBodyAlt object={st} icon={this.sikhIcon} addLoc={this.addLocation.bind(this)} /> : null : null}
 
             </MarkerClusterGroup>
         )
@@ -145,8 +158,10 @@ class Markers extends Component{
 const mapStateToProps = (state) => {
     return {
         filters: state.filters,
-        rf: state.religionFilters
+        rf: state.religionFilters,
+        lc: state.locations,
+        t: state.toast
     }
 }
 
-export default connect(mapStateToProps)(Markers);
+export default connect(mapStateToProps, {changeLocations: changeLocations, changeToast: changeToast})(Markers);

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import {currentLocation, darkMode, filters, religionFilters } from './reducers'
+import {currentLocation, toast, filters, religionFilters, locations } from './reducers'
 
 
 export default combineReducers({
-    currentLocation, darkMode, filters, religionFilters
+    currentLocation, toast, filters, religionFilters, locations
 });

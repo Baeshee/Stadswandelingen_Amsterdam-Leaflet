@@ -3,20 +3,23 @@ import { connect } from "react-redux";
 
 import '../styles/css/filters.css'
 
+import "leaflet-routing-machine";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+
 import {changeReligionFilters,
-        changeFilters} from '../actions'
+        changeFilters, changeLocations} from '../actions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrainSubway, faMuseum, faMonument, faBuilding, faUtensils, faPaintBrush, faChurch, faObjectGroup, faFilter, faRoute, faGear, faKhanda, faStarOfDavid, faDharmachakra, faStarAndCrescent, faOm  } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faTrainSubway, faMuseum, faMonument, faBuilding, faUtensils, faPaintBrush, faChurch, faObjectGroup, faFilter, faRoute, faGear, faKhanda, faStarOfDavid, faDharmachakra, faStarAndCrescent, faOm  } from '@fortawesome/free-solid-svg-icons'
+
+// import { DragList } from './drag_list'
 
 class Menu extends Component {
-
     state = {
         menuOpen: false,
         filters: false,
         route: false,
-        options: false,
-        checked: [true, true, true, true, true, true, true]
+        options: false
     }
 
     toggleMenu = () =>{
@@ -59,6 +62,16 @@ class Menu extends Component {
         this.props.changeReligionFilters(l)
     }
 
+    removeLocation(i){
+        let l = []
+        for (let i=0; i<this.props.lc.length; i++){
+            l.push(this.props.lc[i])
+        }
+
+        l.splice(i, 1);
+        this.props.changeLocations(l)
+    }
+
     render() {
         return (
             <article className={this.state.menuOpen ? "menu" : "menu closed"}>
@@ -89,8 +102,8 @@ class Menu extends Component {
                     </section>
                 </section>
                 {this.state.filters
-                    ? <form>
-                    <h2>Filters</h2>
+                    ? <section className="table-holder">
+                    <h2 style={{ marginTop: '0.5rem' }}>Filters</h2>
                     <table className="table">
                         <tbody>
                             <tr className="table__row">
@@ -176,30 +189,45 @@ class Menu extends Component {
                                 <td className="table__row__cel2"><input type="checkbox" className="input-button" checked={this.props.fltr[3]} onClick={() => this.setFilters(3)} onChange={() => {return}}/></td>
                                 <td className="table__row__cel3"><p className="table__row__text">Cafés & Restaurants</p></td>
                             </tr>
+                            <tr className="table__row">
+                                <td className="table__row__cel1"><FontAwesomeIcon icon={faTrainSubway} /></td>
+                                <td className="table__row__cel2"><input type="checkbox" className="input-button" checked={this.props.fltr[7]} onClick={() => this.setFilters(7)} onChange={() => {return}}/></td>
+                                <td className="table__row__cel3"><p className="table__row__text">Openbaar vervoer</p></td>
+                            </tr>
                         </tbody>
                     </table>
-                </form>
+                </section>
                 : null}
-                {/* {this.state.options ?
+                {this.state.route ?
                     <section>
-                        <div className={this.props.dm ? "slider s_dark" : "slider s_light"}>
-                            <div className={this.props.dm ? "slider__thumb dark" : "slider__thumb light"} onClick={() => {this.props.changeDarkMode(!this.props.darkMode)}}></div>
-                        </div>
+                        <h2 style={{ marginTop: '0.5rem' }}>Route</h2>
+                        {this.props.lc.map((l, i) => (
+                            <section className="container">
+                                <p className="location">{l.name}</p>
+                                <FontAwesomeIcon className="remove" onClick={() =>this.removeLocation(i)} icon={faClose} />
+                            </section>
+                        ))}
                     </section>
-                : null} */}
+                    
+                : null}
             </article>
         )
     }
 }
 
+
+
+
 const mapStateToProps = (state) => {
     return {
         fltr: state.filters,
-        rf: state.religionFilters
+        rf: state.religionFilters,
+        lc: state.locations
     }
 }
 
 export default connect(mapStateToProps, {
     changeFilters:changeFilters,
-    changeReligionFilters: changeReligionFilters
+    changeReligionFilters: changeReligionFilters,
+    changeLocations: changeLocations
 })(Menu);

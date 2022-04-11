@@ -38,25 +38,41 @@
   left: -20rem;
 }
 
+.container {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+.remove {
+  font-size: 2rem;
+}
+.remove:hover {
+  cursor: pointer;
+}
+
 .table__subtitle {
   margin-top: 4rem;
   font-size: 1.8rem;
 }
 
-form {
+.table-holder {
   width: 100%;
   height: 95%;
 }
-form .table {
+.table-holder .table {
   width: 100%;
 }
-form .table h2 {
+.table-holder .table h2 {
   margin-bottom: 1rem;
 }
-form .table tbody {
+.table-holder .table tbody {
   width: 100%;
 }
-form .table tbody .table__row {
+.table-holder .table tbody .table__row {
   width: 100%;
   display: flex;
   align-items: center;
@@ -64,23 +80,23 @@ form .table tbody .table__row {
   gap: 1.5rem;
   margin-bottom: 1rem;
 }
-form .table tbody .table__row__text {
+.table-holder .table tbody .table__row__text {
   font-size: 1.4rem;
 }
-form .table tbody .table__row__cel1, form .table tbody .table__row__cel2 form .table tbody .table__row__cel3 {
+.table-holder .table tbody .table__row__cel1, .table-holder .table tbody .table__row__cel2 .table-holder .table tbody .table__row__cel3 {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-form .table tbody .table__row__cel1 {
+.table-holder .table tbody .table__row__cel1 {
   width: 2rem;
   height: 2rem;
 }
-form .table tbody .table__row__cel2 input {
+.table-holder .table tbody .table__row__cel2 input {
   width: 100%;
   height: 100%;
 }
-form .table tbody .table__row__cel3 {
+.table-holder .table tbody .table__row__cel3 {
   width: auto;
 }
 

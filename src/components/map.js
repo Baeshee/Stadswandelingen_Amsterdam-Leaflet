@@ -1,9 +1,12 @@
-import React, { Component, createRef, useEffect } from 'react'
+import React, { Component, createRef, useEffect, useState, useCallback, useRef } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { connect } from "react-redux";
 
 import L from 'leaflet'
 import { MapContainer, TileLayer, ZoomControl, ScaleControl, useMapEvent, useMap } from 'react-leaflet'
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+
 import 'leaflet/dist/leaflet.css'
 
 import "leaflet-routing-machine";
@@ -13,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 
 import Markers from '../components/markers'
+import Toast from '../components/toast'
 
 const SetViewOnClick = (animateRef) => {
     const map = useMapEvent('click', (e) => {
@@ -21,45 +25,40 @@ const SetViewOnClick = (animateRef) => {
       })      
     }) 
 
-
     return null
   }
 
-const Routing = () => {
+const Routing = (points) => {
   const map = useMap();
-
+ 
   useEffect(() => {
     if (!map) return;
 
-    const icon = new L.divIcon({
-      html: ReactDOMServer.renderToString(<FontAwesomeIcon icon={faLocationDot} />),
-      className: 'routing-icon',
+    let arr = [];
+    points.points.map((p) => {
+      arr.push(p.latlng)
     })
 
+    const accessToken = 'pk.eyJ1IjoiYmFlc2hlZSIsImEiOiJjbDByejR0MzIwODJvM2txbzFoZWQxdXV3In0.1RUvdyWJNzJdqJD5EzseQw'
+    const mapboxRouting = L.Routing.mapbox(accessToken, { profile : 'mapbox/walking' });
+    
     const routingControl = L.Routing.control({
-      waypoints: [L.latLng(52.384952, 4.746678), L.latLng(52.360007, 4.885185), L.latLng(52.408084, 4.855332)],
+      position: 'bottomleft',
+      waypoints: arr,
+      // geocoder: L.Control.Geocoder.nominatim(),
       routeWhileDragging: true,
-      profile: 'foot',
+      router: mapboxRouting,
       lineOptions: {
-        styles: [{ color: 'red', opacity: 1, weight: 5 }]
+        styles: [{ color: 'blue', opacity: 0.5, weight: 5 }]
       },
       createMarker: function(i, waypoint, n) { 
-        const marker = L.marker(waypoint.latLng, {
-          className: 'rounting-body',
-          draggable: false,
-          bounceOnAdd: true,
-          bounceOnAddOptions: {
-            duration: 1000,
-            height: 800,
-          },
-          icon: icon
-        }); 
-        return marker;
+        return null;
       }
     }).addTo(map);
 
-    return () => map.removeControl(routingControl);
-  }, [map]);
+    return() => map.removeControl(routingControl);
+    
+  }, [points]);
 
   return null;
 }
@@ -69,6 +68,8 @@ class Map extends Component {
 
     render() {
         return (
+          <article>
+            <Toast />
             <MapContainer center={[this.props.crntLoc.lat, this.props.crntLoc.lng]} zoom={this.props.crntLoc.zoom} zoomControl={false} scrollWheelZoom={this.props.crntLoc.scrollWheel} style={{ width: '100%', height: '400px' }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -81,11 +82,13 @@ class Map extends Component {
                 <ZoomControl position="bottomright"/>
 
                 <Markers />
+                
 
                 <SetViewOnClick animateRef={this.animateRef}  />
-                <Routing />
+                <Routing points={this.props.lc} />
 
             </MapContainer>
+          </article>
         )
     }
 }
@@ -93,7 +96,8 @@ class Map extends Component {
 const mapStateToProps = (state) => {
   return {
       crntLoc: state.currentLocation,
-      dm: state.darkMode
+      t: state.toast,
+      lc: state.locations
   }
 }
 
