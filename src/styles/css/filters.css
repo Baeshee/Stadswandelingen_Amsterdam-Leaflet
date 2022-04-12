@@ -61,7 +61,19 @@
 
 .table-holder {
   width: 100%;
-  height: 95%;
+  max-height: 20vw;
+  overflow-y: scroll;
+}
+.table-holder::-webkit-scrollbar {
+  width: 0.3rem;
+}
+.table-holder::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+}
+.table-holder::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 .table-holder .table {
   width: 100%;
