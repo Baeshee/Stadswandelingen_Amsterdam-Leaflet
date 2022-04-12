@@ -177,4 +177,10 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .table-holder {
+    max-height: 80vw;
+  }
+}
+
 /*# sourceMappingURL=filters.css.map */
