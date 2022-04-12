@@ -30,14 +30,14 @@
   overflow-y: auto;
 }
 .info__body::-webkit-scrollbar, .tijden__body::-webkit-scrollbar {
-  width: 12px;
+  width: 0.3rem;
 }
 .info__body::-webkit-scrollbar-track, .tijden__body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border-radius: 1rem;
 }
 .info__body::-webkit-scrollbar-thumb, .tijden__body::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 1rem;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 

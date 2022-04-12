@@ -92,9 +92,10 @@
   width: 2rem;
   height: 2rem;
 }
-.table-holder .table tbody .table__row__cel2 input {
-  width: 100%;
-  height: 100%;
+.table-holder .table tbody .table__row__cel2 .input-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  -webkit-appearance: checkbox;
 }
 .table-holder .table tbody .table__row__cel3 {
   width: auto;
