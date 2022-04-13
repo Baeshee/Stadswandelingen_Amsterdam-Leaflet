@@ -39,7 +39,7 @@ const Routing = (points) => {
       arr.push(p.latlng)
     })
 
-    const accessToken = 'pk.eyJ1IjoiYmFlc2hlZSIsImEiOiJjbDByejR0MzIwODJvM2txbzFoZWQxdXV3In0.1RUvdyWJNzJdqJD5EzseQw'
+    const accessToken = '{Mapbox Key}'
     const mapboxRouting = L.Routing.mapbox(accessToken, { profile : 'mapbox/walking' });
     
     const routingControl = L.Routing.control({
