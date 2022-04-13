@@ -1,4 +1,4 @@
-![Image of the application](https://gyazo.com/4ca02bbeba7431d15086299e02eb404e)
+![Image of the application](https://github.com/Baeshee/Standwandelingen_Amsterdam-Leaflet/blob/master/Website_image.png)
 
 # Stadswandelingen Amsterdam - Leaflet (React)
 
