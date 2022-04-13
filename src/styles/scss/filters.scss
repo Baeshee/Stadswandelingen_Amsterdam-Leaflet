@@ -67,7 +67,23 @@
 
 .table-holder{
     width: 100%;
-    height: 95%;
+    max-height: 20vw;
+    overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 0.3rem;
+        }
+        
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+            border-radius: 1rem;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            border-radius: 1rem;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+        }
+
     .table{
         // padding: 2rem;
         width: 100%;
@@ -78,6 +94,7 @@
 
         tbody{
             width: 100%;
+
             .table__row{
                 width: 100%;
                 display: flex;
@@ -102,9 +119,10 @@
                 }
 
                 &__cel2{                    
-                    input {
-                        width: 100%;
-                        height: 100%;
+                    .input-button{
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        -webkit-appearance:checkbox;
                     }
                 }
                 &__cel3{
@@ -191,4 +209,11 @@
 			}
 		}
 	}
+}
+
+@media screen and (max-width: 768px) {
+    .table-holder{
+        max-height: 80vw;
+    }
+    
 }

@@ -199,7 +199,7 @@ class Menu extends Component {
                 </section>
                 : null}
                 {this.state.route ?
-                    <section>
+                    <section className="table-holder">
                         <h2 style={{ marginTop: '0.5rem' }}>Route</h2>
                         {this.props.lc.map((l, i) => (
                             <section className="container">
