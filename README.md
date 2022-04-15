@@ -13,3 +13,5 @@ These places are:
 - Wallart
 - Cafés & Restaurants
 - Public Transit
+
+Site is hosted and reachable from: https://stadswandelingen-amsterdam.web.app/
