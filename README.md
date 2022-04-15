@@ -15,3 +15,5 @@ These places are:
 - Public Transit
 
 Site is hosted and reachable from: https://stadswandelingen-amsterdam.web.app/
+
+NOTE: Changed to Openstreet Maps tile map and OSMRv1 Routing (car) due to Mapbox api call limitations and unwanted billing
